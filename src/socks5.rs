@@ -118,7 +118,7 @@ pub async fn handle_client(mut socket: TcpStream) -> io::Result<()> {
 }
 
 async fn send_reply(socket: &mut TcpStream, reply: u8, bind_addr: &[u8]) -> io::Result<()> {
-    let mut response = vec![SOCKS5_VERSION, reply, 0, IPv4];
+    let mut response = vec![SOCKS5_VERSION, reply, 0, IPV4];
     response.extend_from_slice(bind_addr);
     socket.write_all(&response).await
 }
@@ -128,3 +128,4 @@ async fn forward_data(mut client: TcpStream, mut dest: TcpStream) -> io::Result<
     copy_bidirectional(&mut client, &mut dest).await?;
     Ok(())
 }
+
